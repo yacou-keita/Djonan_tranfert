@@ -1,7 +1,9 @@
 from typing import Union
 from app.core.errors.exception import ServerException
 from app.core.errors.failure import Failure
+from app.core.interface_usecase.interface_usecase import NoParams
 from app.features.bank.data.data_source.interface_bank_data_source import IBankDataSourceRepository
+from app.features.bank.data.models.bank_model import BankModel
 from app.features.bank.domain.entities.bank import Bank
 from app.features.bank.domain.interface_repository.params import CreateAccountParams
 
@@ -18,5 +20,11 @@ class MongoDBdataSource(IBankDataSourceRepository):
                             password=params.password)
             self.__list.append(new_bank)
             return True
+        except Exception as error:
+            raise ServerException(message=error)
+
+    def get_account_list(self, params: NoParams) -> BankModel:
+        try:
+            return BankModel.from_json(self.__list)
         except Exception as error:
             raise ServerException(message=error)
