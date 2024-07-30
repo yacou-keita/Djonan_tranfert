@@ -5,7 +5,7 @@ from app.core.interface_usecase.interface_usecase import NoParams
 from app.features.bank.data.data_source.interface_bank_data_source import IBankDataSourceRepository
 from app.features.bank.domain.entities.bank import Bank
 from app.features.bank.domain.interface_repository.interface_bank_repository import IBankRepository
-from app.features.bank.domain.interface_repository.params import CreateAccountParams
+from app.features.bank.domain.interface_repository.params import CreateAccountParams, SubscribeParams
 
 
 class BankRepository(IBankRepository):
@@ -22,5 +22,17 @@ class BankRepository(IBankRepository):
     def get_account_list(self, params: NoParams) -> Failure | list[Bank]:
         try:
             return self.__bankRepository.get_account_list(params)
+        except ServerException as message:
+            return Failure(message)
+
+    def get_account_by_id(self, id: str) -> Failure | Bank:
+        try:
+            return self.__bankRepository.get_account_by_id(id)
+        except ServerException as message:
+            return Failure(message)
+
+    def subscribe(self, params: SubscribeParams) -> Failure | bool:
+        try:
+            return self.__bankRepository.subscribe(params)
         except ServerException as message:
             return Failure(message)

@@ -10,4 +10,4 @@ class Bank:
         self.is_active = True
 
     def __repr__(self) -> str:
-        return f"Bank({self.id} , {self.name} , {self.accounts} , {self.password} , {self.is_active})"
+        return f"Bank(id:{self.id} , name:{self.name} , accounts:{self.accounts} , password:{self.password} , is_active:{self.is_active})"
