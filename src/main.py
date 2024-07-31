@@ -18,10 +18,16 @@ def main():
     customer = Customer(last_name="Yacou", fisrt_name="keita",
                         phoneNumber="0768223663")
     subcriber = SubscribeParams(customer, password="1234", bank_id=2)
-    reponse = bankService.subscribe(params=subcriber)
-    if isinstance(reponse, Failure):
-        print(reponse)
-        return
+    customer1 = Customer(last_name="Yacou", fisrt_name="keita",
+                        phoneNumber="0768223663")
+    subcriber1 = SubscribeParams(customer1, password="1234", bank_id=2)
+    customer2 = Customer(last_name="Yacou", fisrt_name="keita",
+                        phoneNumber="0768223663")
+    subcriber2 = SubscribeParams(customer2, password="1234", bank_id=1)
+    bankService.subscribe(params=subcriber)
+    bankService.subscribe(params=subcriber1)
+    bankService.subscribe(params=subcriber2)
+    
     # print(bankService.get_account_by_id(2))
     print(bankService.get_account_list(NoParams))
 

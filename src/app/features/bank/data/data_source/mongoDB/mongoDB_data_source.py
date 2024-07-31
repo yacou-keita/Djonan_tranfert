@@ -16,7 +16,9 @@ class MongoDBdataSource(IBankDataSourceRepository):
 
     def create_account(self, params: CreateAccountParams) -> Union[Failure, bool]:
         try:
-            create_index = len(self.__list) + 1
+            # create_index = len(self.__list) + 1
+            create_index = max(
+                (account.id for account in self.__list), default=0) + 1
             new_bank = Bank(id=create_index, name=params.name,
                             password=params.password)
             self.__list.append(new_bank)
@@ -60,8 +62,8 @@ class MongoDBdataSource(IBankDataSourceRepository):
             new_subscriber.customer = params.customer
             new_subscriber.password = params.password
 
-            get_bank.accounts.append(new_subscriber)
-            
+            get_bank.accounts = [new_subscriber] + get_bank.accounts
+
             return True
         except Exception as error:
             raise ServerException(message=error)
