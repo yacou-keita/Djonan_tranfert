@@ -3,8 +3,9 @@ from typing import Union
 
 from app.core.errors.failure import Failure
 from app.core.interface_usecase.interface_usecase import NoParams
+from app.features.bank.data.models.account_model import AccountModel
 from app.features.bank.data.models.bank_model import BankModel
-from app.features.bank.domain.interface_repository.params import CreateAccountParams, SubscribeParams
+from app.features.bank.domain.interface_repository.params import CreateAccountParams, LoginParams, SubscribeParams
 
 
 class IBankDataSourceRepository(ABC):
@@ -23,4 +24,8 @@ class IBankDataSourceRepository(ABC):
 
     @abstractmethod
     def subscribe(self, params: SubscribeParams) -> bool:
+        pass
+
+    @abstractmethod
+    def login(self, params:LoginParams) -> AccountModel:
         pass

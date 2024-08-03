@@ -1,3 +1,4 @@
+from typing import Union
 from app.core.errors.failure import Failure
 from app.core.interface_usecase.interface_usecase import IUseCase
 from app.features.bank.domain.entities.bank import Bank
@@ -9,5 +10,5 @@ class Subscribe(IUseCase[bool, SubscribeParams]):
     def __init__(self, repository: IBankRepository) -> None:
         self.__repository = repository
 
-    def execute(self, params: SubscribeParams) -> Failure | Bank:
+    def execute(self, params: SubscribeParams) -> Union[Failure , Bank]:
         return self.__repository.subscribe(params)

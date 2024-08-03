@@ -1,11 +1,12 @@
-from typing import Union
+from typing import List, Union
 from app.core.errors.exception import ServerException
 from app.core.errors.failure import Failure
 from app.core.interface_usecase.interface_usecase import NoParams
 from app.features.bank.data.data_source.interface_bank_data_source import IBankDataSourceRepository
+from app.features.bank.domain.entities.account import Account
 from app.features.bank.domain.entities.bank import Bank
 from app.features.bank.domain.interface_repository.interface_bank_repository import IBankRepository
-from app.features.bank.domain.interface_repository.params import CreateAccountParams, SubscribeParams
+from app.features.bank.domain.interface_repository.params import CreateAccountParams, LoginParams, SubscribeParams
 
 
 class BankRepository(IBankRepository):
@@ -19,20 +20,26 @@ class BankRepository(IBankRepository):
         except ServerException as message:
             return Failure(message)
 
-    def get_account_list(self, params: NoParams) -> Failure | list[Bank]:
+    def get_account_list(self, params: NoParams) -> Union[Failure, List[Bank]]:
         try:
             return self.__bankRepository.get_account_list(params)
         except ServerException as message:
             return Failure(message)
 
-    def get_account_by_id(self, id: str) -> Failure | Bank:
+    def get_account_by_id(self, id: str) -> Union[Failure | Bank]:
         try:
             return self.__bankRepository.get_account_by_id(id)
         except ServerException as message:
             return Failure(message)
 
-    def subscribe(self, params: SubscribeParams) -> Failure | bool:
+    def subscribe(self, params: SubscribeParams) -> Union[Failure, bool]:
         try:
             return self.__bankRepository.subscribe(params)
+        except ServerException as message:
+            return Failure(message)
+
+    def login(self, params: LoginParams) -> Union[Failure, Account]:
+        try:
+            return self.__bankRepository.login(params)
         except ServerException as message:
             return Failure(message)

@@ -12,3 +12,13 @@ class SubscribeParams:
         self.customer = customer
         self.password = password
         self.bank_id = bank_id
+
+
+class LoginParams:
+    def __init__(self, password: str, phoneNumber: str, bank_id: str) -> None:
+        self.password = password
+        self.phoneNumber = phoneNumber
+        self.bank_id = bank_id
+
+    def __repr__(self) -> str:
+        return f"LoginParams(password:{self.password} , phoneNumber:{self.phoneNumber} , bank_id:{self.bank_id})"
